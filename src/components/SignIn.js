@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
   image: {
     backgroundImage:
-      "url(https://source.unsplash.com/collection/1390381/480x480)",
+      "url(https://source.unsplash.com/collection/9497177/480x480)",
     backgroundRepeat: "no-repeat",
     backgroundColor:
       theme.palette.type === "light"
@@ -103,6 +103,8 @@ function SignIn() {
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
+          <h1>Final Project</h1>
+          <h2>TE566 Finance For Engineering Management</h2>
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>

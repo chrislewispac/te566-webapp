@@ -10,9 +10,9 @@ import {
   InputLabel,
   FormControl,
 } from "@material-ui/core";
-import Title from "./Title";
+import Title from "../Title";
 import { useFirestore } from "react-redux-firebase";
-import { deviceSchema, blankDevice } from "../../models/device";
+import { customerSchema, blankCustomer } from "../../../models/customer";
 import moment from "moment";
 
 const useStyles = makeStyles((theme) => ({
@@ -36,10 +36,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AddDevice() {
+export default function AddCustomer() {
   const classes = useStyles();
 
-  const [formState, setFormState] = useState(blankDevice);
+  const [formState, setFormState] = useState(blankCustomer);
 
   const handleFormChange = (e) =>
     setFormState({
@@ -49,12 +49,12 @@ export default function AddDevice() {
 
   const firestore = useFirestore();
 
-  function addDevice(data) {
+  function addCustomer(data) {
     return firestore
-      .collection("devices")
+      .collection("customers")
       .add(data)
       .then(() => {
-        setFormState(blankDevice);
+        setFormState(blankCustomer);
       })
       .catch((e) => console.log(e));
   }
@@ -63,9 +63,9 @@ export default function AddDevice() {
     e.preventDefault();
     const registeredDate = moment().format();
     const data = { ...formState, registeredDate };
-    const { error } = deviceSchema.validate(data);
+    const { error } = customerSchema.validate(data);
     if (!error) {
-      addDevice(data);
+      addCustomer(data);
     } else {
       console.log(error);
     }
@@ -76,19 +76,19 @@ export default function AddDevice() {
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Paper className={classes.paper}>
-            <Title>Add Device</Title>
+            <Title>Add Customer</Title>
             <form className={classes.form} noValidate onSubmit={handleSubmit}>
               <Grid container spacing={3}>
                 <Grid item xs={4}>
                   <FormControl className={classes.formControl}>
                     <InputLabel id="demo-simple-select-label">
-                      Device Type
+                      Customer Type
                     </InputLabel>
                     <Select
-                      id="deviceType"
-                      label="Device Type"
-                      name="deviceType"
-                      value={formState.deviceType}
+                      id="customerType"
+                      label="Customer Type"
+                      name="customerType"
+                      value={formState.customerType}
                       onChange={handleFormChange}
                     >
                       <MenuItem value={"Pulse Ox Sensor"}>
@@ -103,10 +103,10 @@ export default function AddDevice() {
                 <Grid item xs={4}>
                   <TextField
                     required
-                    value={formState.deviceVersion}
-                    id="deviceVersion"
-                    label="Device Version"
-                    name="deviceVersion"
+                    value={formState.customerVersion}
+                    id="customerVersion"
+                    label="Customer Version"
+                    name="customerVersion"
                     fullWidth
                     onChange={handleFormChange}
                   />
@@ -114,10 +114,10 @@ export default function AddDevice() {
                 <Grid item xs={4}>
                   <TextField
                     required
-                    value={formState.deviceID}
-                    id="deviceID"
-                    name="deviceID"
-                    label="Device ID"
+                    value={formState.customerID}
+                    id="customerID"
+                    name="customerID"
+                    label="Customer ID"
                     fullWidth
                     onChange={handleFormChange}
                   />

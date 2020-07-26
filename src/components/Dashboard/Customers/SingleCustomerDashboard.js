@@ -37,22 +37,22 @@ export default function CurrentPatients() {
 
   useFirestoreConnect([
     {
-      collection: "devices",
+      collection: "customers",
       doc: id,
     },
   ]);
 
-  const device = useSelector(
-    ({ firestore: { data } }) => data.devices && data.devices[id]
+  const customer = useSelector(
+    ({ firestore: { data } }) => data.customers && data.customers[id]
   );
-  console.log(device);
+  console.log(customer);
 
   return (
     <React.Fragment>
       <Grid container spacing={3}>
         <Grid item xs={6}>
           <Paper className={fixedHeightPaper}>
-            SINGLE DEVICE DASHBOARD {id}
+            SINGLE Customer DASHBOARD {id}
           </Paper>
         </Grid>
       </Grid>

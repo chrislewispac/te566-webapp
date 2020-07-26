@@ -4,7 +4,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListSubheader from "@material-ui/core/ListSubheader";
-import DevicesOtherIcon from "@material-ui/icons/DevicesOther";
+import PersonIcon from "@material-ui/icons/Person";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import { useFirebase } from "react-redux-firebase";
@@ -12,7 +12,9 @@ import { connect } from "react-redux";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import { makeStyles } from "@material-ui/core/styles";
-import DevicesIcon from "@material-ui/icons/Devices";
+import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
+import PeopleIcon from "@material-ui/icons/People";
+import BusinessIcon from "@material-ui/icons/Business";
 import QueuePlayNextIcon from "@material-ui/icons/QueuePlayNext";
 import ListItemLink from "./ListItemLink.js";
 
@@ -29,7 +31,7 @@ const MainListItemsComponent = (props) => {
   const classes = useStyles();
 
   const [menuState, setMenuState] = React.useState({
-    mangageDevicesOpen: false,
+    mangageCustomersOpen: false,
   });
 
   const handleClickOpen = (menuName) => {
@@ -41,31 +43,179 @@ const MainListItemsComponent = (props) => {
 
   return (
     <div>
-      <ListItemLink
+      {/* <ListItemLink
         to="/dashboard"
         primary="Dashboard"
         icon={<DashboardIcon />}
+      /> */}
+      <ListItemLink
+        to="/incomeStatement"
+        primary="Income Statement"
+        icon={<DashboardIcon />}
       />
-      <ListItem button onClick={() => handleClickOpen("manageDevicesOpen")}>
+      <ListItemLink
+        to="/balanceSheet"
+        primary="Balance Sheet"
+        icon={<DashboardIcon />}
+      />
+      <ListItem button onClick={() => handleClickOpen("manageCustomersOpen")}>
         <ListItemIcon>
-          <DevicesOtherIcon />
+          <PersonIcon />
         </ListItemIcon>
-        <ListItemText primary="Manage Devices" />
-        {menuState.manageDevicesOpen ? <ExpandLess /> : <ExpandMore />}
+        <ListItemText primary="Manage Customers" />
+        {menuState.manageCustomersOpen ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
-      <Collapse in={menuState.manageDevicesOpen} timeout="auto" unmountOnExit>
+      <Collapse in={menuState.manageCustomersOpen} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           <ListItemLink
             className={classes.nested}
-            to="/dashboard/addDevice"
-            primary="Add Device"
+            to="/dashboard/addCustomer"
+            primary="Add Customer"
             icon={<QueuePlayNextIcon />}
           />
           <ListItemLink
             className={classes.nested}
-            to="/dashboard/devices"
-            primary="All Devices"
-            icon={<DevicesIcon />}
+            to="/dashboard/customers"
+            primary="View Customers"
+            icon={<PeopleIcon />}
+          />
+        </List>
+      </Collapse>
+      <ListItem button onClick={() => handleClickOpen("manageEmployeesOpen")}>
+        <ListItemIcon>
+          <AssignmentIndIcon />
+        </ListItemIcon>
+        <ListItemText primary="Manage Employees" />
+        {menuState.manageEmployeesOpen ? <ExpandLess /> : <ExpandMore />}
+      </ListItem>
+      <Collapse in={menuState.manageEmployeesOpen} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItemLink
+            className={classes.nested}
+            to="/dashboard/addEmployee"
+            primary="Add Employee"
+            icon={<QueuePlayNextIcon />}
+          />
+          <ListItemLink
+            className={classes.nested}
+            to="/dashboard/employees"
+            primary="View Employees"
+            icon={<PeopleIcon />}
+          />
+        </List>
+      </Collapse>
+      <ListItem button onClick={() => handleClickOpen("manageVendorsOpen")}>
+        <ListItemIcon>
+          <BusinessIcon />
+        </ListItemIcon>
+        <ListItemText primary="Manage Vendors" />
+        {menuState.manageVendorsOpen ? <ExpandLess /> : <ExpandMore />}
+      </ListItem>
+      <Collapse in={menuState.manageVendorsOpen} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItemLink
+            className={classes.nested}
+            to="/dashboard/addVendor"
+            primary="Add Vendor"
+            icon={<QueuePlayNextIcon />}
+          />
+          <ListItemLink
+            className={classes.nested}
+            to="/dashboard/vendors"
+            primary="View Vendors"
+            icon={<PeopleIcon />}
+          />
+        </List>
+      </Collapse>
+      <ListItem button onClick={() => handleClickOpen("managePayrollOpen")}>
+        <ListItemIcon>
+          <BusinessIcon />
+        </ListItemIcon>
+        <ListItemText primary="Manage Payroll" />
+        {menuState.managePayrollOpen ? <ExpandLess /> : <ExpandMore />}
+      </ListItem>
+      <Collapse in={menuState.managePayrollOpen} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItemLink
+            className={classes.nested}
+            to="/dashboard/payEmployee"
+            primary="Pay Employee"
+            icon={<QueuePlayNextIcon />}
+          />
+          <ListItemLink
+            className={classes.nested}
+            to="/dashboard/viewPayrollEvents"
+            primary="View Payroll Events"
+            icon={<PeopleIcon />}
+          />
+        </List>
+      </Collapse>
+      <ListItem button onClick={() => handleClickOpen("manageInvoicesOpen")}>
+        <ListItemIcon>
+          <BusinessIcon />
+        </ListItemIcon>
+        <ListItemText primary="Manage Invoices" />
+        {menuState.manageInvoicesOpen ? <ExpandLess /> : <ExpandMore />}
+      </ListItem>
+      <Collapse in={menuState.manageInvoicesOpen} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItemLink
+            className={classes.nested}
+            to="/dashboard/createInvoice"
+            primary="Create Invoice"
+            icon={<QueuePlayNextIcon />}
+          />
+          <ListItemLink
+            className={classes.nested}
+            to="/dashboard/viewInvoices"
+            primary="View Invoices"
+            icon={<PeopleIcon />}
+          />
+        </List>
+      </Collapse>
+      <ListItem button onClick={() => handleClickOpen("managePuchaseOrdersOpen")}>
+        <ListItemIcon>
+          <BusinessIcon />
+        </ListItemIcon>
+        <ListItemText primary="Purchase Orders" />
+        {menuState.managePuchaseOrdersOpen ? <ExpandLess /> : <ExpandMore />}
+      </ListItem>
+      <Collapse in={menuState.managePuchaseOrdersOpen} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItemLink
+            className={classes.nested}
+            to="/dashboard/createPurchaseOrder"
+            primary="Create PO"
+            icon={<QueuePlayNextIcon />}
+          />
+          <ListItemLink
+            className={classes.nested}
+            to="/dashboard/viewPurchaseOrders"
+            primary="View POs"
+            icon={<PeopleIcon />}
+          />
+        </List>
+      </Collapse>
+      <ListItem button onClick={() => handleClickOpen("manageInventoryOpen")}>
+        <ListItemIcon>
+          <BusinessIcon />
+        </ListItemIcon>
+        <ListItemText primary="Inventory" />
+        {menuState.manageInventoryOpen ? <ExpandLess /> : <ExpandMore />}
+      </ListItem>
+      <Collapse in={menuState.manageInventoryOpen} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItemLink
+            className={classes.nested}
+            to="/dashboard/addInventory"
+            primary="Add Inventory"
+            icon={<QueuePlayNextIcon />}
+          />
+          <ListItemLink
+            className={classes.nested}
+            to="/dashboard/viewInventory"
+            primary="View Inventory"
+            icon={<PeopleIcon />}
           />
         </List>
       </Collapse>

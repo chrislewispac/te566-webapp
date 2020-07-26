@@ -7,7 +7,7 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import Title from "./Title";
+import Title from "../Title";
 import { useFirestoreConnect, useFirestore } from "react-redux-firebase";
 import moment from "moment";
 import { Link as RouterLink } from "react-router-dom";
@@ -34,23 +34,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ViewDevices() {
+export default function ViewCustomers() {
   const classes = useStyles();
   const firestore = useFirestore();
 
-  useFirestoreConnect("devices");
+  useFirestoreConnect("customers");
 
-  const d = useSelector((state) => state.firestore.ordered.devices) || []; //TODO: change to loading instead of empty array
-  const devices = d.filter((dd) => {
+  const d = useSelector((state) => state.firestore.ordered.customers) || []; //TODO: change to loading instead of empty array
+  const customers = d.filter((dd) => {
     return !dd.archived;
   });
 
-  const archiveDevice = (id) => {
+  const archiveCustomer = (id) => {
     firestore
-      .collection("devices")
+      .collection("customers")
       .doc(id)
       .update({ archived: true })
-      .then(() => {})
+      .then(() => { })
       .catch((e) => console.log(e));
   };
 
@@ -59,32 +59,32 @@ export default function ViewDevices() {
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Paper className={classes.paper}>
-            <Title>Current Devices</Title>
+            <Title>Current Customers</Title>
             <Table size="small">
               <TableHead>
                 <TableRow>
                   <TableCell>Registered Date</TableCell>
-                  <TableCell>Device Type</TableCell>
-                  <TableCell>Device Version</TableCell>
+                  <TableCell>Customer Type</TableCell>
+                  <TableCell>Customer Version</TableCell>
                   <TableCell>Archived</TableCell>
                   <TableCell>Status</TableCell>
                   <TableCell>Actions</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {devices.map((d) => (
+                {customers.map((d) => (
                   <TableRow key={d.id}>
                     <TableCell>
                       {moment(d.registeredDate).format("MM/DD/YY")}
                     </TableCell>
-                    <TableCell>{d.deviceType}</TableCell>
-                    <TableCell>{d.deviceVersion}</TableCell>
+                    <TableCell>{d.customerType}</TableCell>
+                    <TableCell>{d.customerVersion}</TableCell>
                     <TableCell>{JSON.stringify(d.archived)}</TableCell>
                     <TableCell>deployed</TableCell>
                     <TableCell>
                       <Button
                         component={RouterLink}
-                        to={`/dashboard/devices/${d.id}`}
+                        to={`/dashboard/customers/${d.id}`}
                         size="small"
                         color="primary"
                       >
@@ -92,7 +92,7 @@ export default function ViewDevices() {
                       </Button>
                       <Button
                         component={RouterLink}
-                        to={`/dashboard/devices/${d.id}/deploy`}
+                        to={`/dashboard/customers/${d.id}/deploy`}
                         size="small"
                         color="primary"
                       >
@@ -102,7 +102,7 @@ export default function ViewDevices() {
                         size="small"
                         color="secondary"
                         onClick={() => {
-                          archiveDevice(d.id);
+                          archiveCustomer(d.id);
                         }}
                       >
                         Archive

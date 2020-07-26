@@ -14,10 +14,10 @@ import Container from "@material-ui/core/Container";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { MainListItems, SecondaryListItems } from "./listItems";
-import SingleDeviceDashboard from "./SingleDeviceDashboard";
+import SingleCustomerDashboard from "./Customers/SingleCustomerDashboard";
 import MainDashboard from "./MainDashboard";
-import ViewDevices from "./VIewDevices";
-import AddDevice from "./AddDevice";
+import ViewCustomers from "./Customers/ViewCustomers";
+import AddCustomer from "./Customers/AddCustomer";
 import { Switch, Route, useRouteMatch } from "react-router-dom";
 import { connect } from "react-redux";
 
@@ -211,14 +211,14 @@ function Dashboard() {
                 <Copyright />
               </Box>
             </Route>
-            <Route path={`${path}/addDevice`}>
-              <AddDevice />
+            <Route path={`${path}/addCustomer`}>
+              <AddCustomer />
             </Route>
-            <Route exact path={`${path}/devices`}>
-              <ViewDevices />
+            <Route exact path={`${path}/customers`}>
+              <ViewCustomers />
             </Route>
-            <Route path={`${path}/devices/:id`}>
-              <SingleDeviceDashboard />
+            <Route path={`${path}/customers/:id`}>
+              <SingleCustomerDashboard />
             </Route>
           </Switch>
         </Container>
