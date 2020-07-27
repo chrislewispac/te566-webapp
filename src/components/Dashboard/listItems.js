@@ -4,9 +4,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListSubheader from "@material-ui/core/ListSubheader";
-import PersonIcon from "@material-ui/icons/Person";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import DashboardIcon from "@material-ui/icons/Dashboard";
 import { useFirebase } from "react-redux-firebase";
 import { connect } from "react-redux";
 import ExpandLess from "@material-ui/icons/ExpandLess";
@@ -15,8 +13,15 @@ import { makeStyles } from "@material-ui/core/styles";
 import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
 import PeopleIcon from "@material-ui/icons/People";
 import BusinessIcon from "@material-ui/icons/Business";
-import QueuePlayNextIcon from "@material-ui/icons/QueuePlayNext";
 import ListItemLink from "./ListItemLink.js";
+import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
+import AddIcon from "@material-ui/icons/Add";
+import ViewListIcon from "@material-ui/icons/ViewList";
+import PaymentIcon from "@material-ui/icons/Payment";
+import StorefrontIcon from "@material-ui/icons/Storefront";
+import DescriptionIcon from "@material-ui/icons/Description";
+import ReceiptIcon from "@material-ui/icons/Receipt";
+import ListAltIcon from "@material-ui/icons/ListAlt";
 
 const useStyles = makeStyles((theme) => ({
   nested: {
@@ -51,16 +56,16 @@ const MainListItemsComponent = (props) => {
       <ListItemLink
         to="/incomeStatement"
         primary="Income Statement"
-        icon={<DashboardIcon />}
+        icon={<DescriptionIcon />}
       />
       <ListItemLink
         to="/balanceSheet"
         primary="Balance Sheet"
-        icon={<DashboardIcon />}
+        icon={<AccountBalanceIcon />}
       />
       <ListItem button onClick={() => handleClickOpen("manageCustomersOpen")}>
         <ListItemIcon>
-          <PersonIcon />
+          <PeopleIcon />
         </ListItemIcon>
         <ListItemText primary="Manage Customers" />
         {menuState.manageCustomersOpen ? <ExpandLess /> : <ExpandMore />}
@@ -71,13 +76,13 @@ const MainListItemsComponent = (props) => {
             className={classes.nested}
             to="/dashboard/addCustomer"
             primary="Add Customer"
-            icon={<QueuePlayNextIcon />}
+            icon={<AddIcon />}
           />
           <ListItemLink
             className={classes.nested}
             to="/dashboard/customers"
             primary="View Customers"
-            icon={<PeopleIcon />}
+            icon={<ViewListIcon />}
           />
         </List>
       </Collapse>
@@ -94,13 +99,13 @@ const MainListItemsComponent = (props) => {
             className={classes.nested}
             to="/dashboard/addEmployee"
             primary="Add Employee"
-            icon={<QueuePlayNextIcon />}
+            icon={<AddIcon />}
           />
           <ListItemLink
             className={classes.nested}
             to="/dashboard/employees"
             primary="View Employees"
-            icon={<PeopleIcon />}
+            icon={<ViewListIcon />}
           />
         </List>
       </Collapse>
@@ -117,19 +122,19 @@ const MainListItemsComponent = (props) => {
             className={classes.nested}
             to="/dashboard/addVendor"
             primary="Add Vendor"
-            icon={<QueuePlayNextIcon />}
+            icon={<AddIcon />}
           />
           <ListItemLink
             className={classes.nested}
             to="/dashboard/vendors"
             primary="View Vendors"
-            icon={<PeopleIcon />}
+            icon={<ViewListIcon />}
           />
         </List>
       </Collapse>
       <ListItem button onClick={() => handleClickOpen("managePayrollOpen")}>
         <ListItemIcon>
-          <BusinessIcon />
+          <PaymentIcon />
         </ListItemIcon>
         <ListItemText primary="Manage Payroll" />
         {menuState.managePayrollOpen ? <ExpandLess /> : <ExpandMore />}
@@ -140,19 +145,19 @@ const MainListItemsComponent = (props) => {
             className={classes.nested}
             to="/dashboard/payEmployee"
             primary="Pay Employee"
-            icon={<QueuePlayNextIcon />}
+            icon={<AddIcon />}
           />
           <ListItemLink
             className={classes.nested}
             to="/dashboard/viewPayrollEvents"
             primary="View Payroll Events"
-            icon={<PeopleIcon />}
+            icon={<ViewListIcon />}
           />
         </List>
       </Collapse>
       <ListItem button onClick={() => handleClickOpen("manageInvoicesOpen")}>
         <ListItemIcon>
-          <BusinessIcon />
+          <ReceiptIcon />
         </ListItemIcon>
         <ListItemText primary="Manage Invoices" />
         {menuState.manageInvoicesOpen ? <ExpandLess /> : <ExpandMore />}
@@ -163,42 +168,49 @@ const MainListItemsComponent = (props) => {
             className={classes.nested}
             to="/dashboard/createInvoice"
             primary="Create Invoice"
-            icon={<QueuePlayNextIcon />}
+            icon={<AddIcon />}
           />
           <ListItemLink
             className={classes.nested}
             to="/dashboard/viewInvoices"
             primary="View Invoices"
-            icon={<PeopleIcon />}
+            icon={<ViewListIcon />}
           />
         </List>
       </Collapse>
-      <ListItem button onClick={() => handleClickOpen("managePuchaseOrdersOpen")}>
+      <ListItem
+        button
+        onClick={() => handleClickOpen("managePuchaseOrdersOpen")}
+      >
         <ListItemIcon>
-          <BusinessIcon />
+          <ListAltIcon />
         </ListItemIcon>
         <ListItemText primary="Purchase Orders" />
         {menuState.managePuchaseOrdersOpen ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
-      <Collapse in={menuState.managePuchaseOrdersOpen} timeout="auto" unmountOnExit>
+      <Collapse
+        in={menuState.managePuchaseOrdersOpen}
+        timeout="auto"
+        unmountOnExit
+      >
         <List component="div" disablePadding>
           <ListItemLink
             className={classes.nested}
             to="/dashboard/createPurchaseOrder"
             primary="Create PO"
-            icon={<QueuePlayNextIcon />}
+            icon={<AddIcon />}
           />
           <ListItemLink
             className={classes.nested}
             to="/dashboard/viewPurchaseOrders"
             primary="View POs"
-            icon={<PeopleIcon />}
+            icon={<ViewListIcon />}
           />
         </List>
       </Collapse>
       <ListItem button onClick={() => handleClickOpen("manageInventoryOpen")}>
         <ListItemIcon>
-          <BusinessIcon />
+          <StorefrontIcon />
         </ListItemIcon>
         <ListItemText primary="Inventory" />
         {menuState.manageInventoryOpen ? <ExpandLess /> : <ExpandMore />}
@@ -209,13 +221,13 @@ const MainListItemsComponent = (props) => {
             className={classes.nested}
             to="/dashboard/addInventory"
             primary="Add Inventory"
-            icon={<QueuePlayNextIcon />}
+            icon={<AddIcon />}
           />
           <ListItemLink
             className={classes.nested}
             to="/dashboard/viewInventory"
             primary="View Inventory"
-            icon={<PeopleIcon />}
+            icon={<ViewListIcon />}
           />
         </List>
       </Collapse>
