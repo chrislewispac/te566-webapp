@@ -8,6 +8,7 @@ import { myFirebase } from "./firebase";
 import { ReactReduxFirebaseProvider } from "react-redux-firebase";
 import { createFirestoreInstance } from "redux-firestore";
 import * as serviceWorker from "./serviceWorker";
+import { SnackbarProvider } from "./components/Snackbar";
 
 const syncHistoryWithStore = (store, history) => {
   const { router } = store.getState();
@@ -42,7 +43,7 @@ const rrfProps = {
 ReactDOM.render(
   <Provider store={store}>
     <ReactReduxFirebaseProvider {...rrfProps}>
-      {routes}
+      <SnackbarProvider>{routes}</SnackbarProvider>
     </ReactReduxFirebaseProvider>
   </Provider>,
   document.getElementById("root")

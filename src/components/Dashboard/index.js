@@ -14,10 +14,12 @@ import Container from "@material-ui/core/Container";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { MainListItems, SecondaryListItems } from "./listItems";
-import SingleCustomerDashboard from "./Customers/SingleCustomerDashboard";
 import MainDashboard from "./MainDashboard";
 import ViewCustomers from "./Customers/ViewCustomers";
 import AddCustomer from "./Customers/AddCustomer";
+import ViewEmployees from "./Employees/ViewEmployees";
+import AddEmployee from "./Employees/AddEmployee";
+import SingleCustomerDashboard from "./Customers/SingleCustomerDashboard";
 import { Switch, Route, useRouteMatch } from "react-router-dom";
 import { connect } from "react-redux";
 
@@ -220,6 +222,15 @@ function Dashboard() {
             <Route path={`${path}/customers/:id`}>
               <SingleCustomerDashboard />
             </Route>
+            <Route path={`${path}/addEmployee`}>
+              <AddEmployee />
+            </Route>
+            <Route exact path={`${path}/employees`}>
+              <ViewEmployees />
+            </Route>
+            {/* <Route path={`${path}/employees/:id`}>
+              <SingleEmployeeDashboard />
+            </Route> */}
           </Switch>
         </Container>
       </main>
