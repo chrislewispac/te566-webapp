@@ -12,7 +12,7 @@ import {
 } from "@material-ui/core";
 import Title from "../Title";
 import { useFirestore } from "react-redux-firebase";
-import { blankCustomer } from "../../../models/customer";
+import { blankVendor } from "../../../models/vendor";
 import moment from "moment";
 import { useSnackbar } from "../../Snackbar";
 
@@ -37,11 +37,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AddCustomer() {
+export default function AddVendor() {
   const classes = useStyles();
   const { addAlert } = useSnackbar();
 
-  const [formState, setFormState] = useState(blankCustomer);
+  const [formState, setFormState] = useState(blankVendor);
 
   const handleFormChange = (e) =>
     setFormState({
@@ -51,16 +51,16 @@ export default function AddCustomer() {
 
   const firestore = useFirestore();
 
-  function addCustomer(data) {
+  function addVendor(data) {
     return firestore
-      .collection("customers")
+      .collection("vendors")
       .add(data)
       .then(() => {
-        addAlert("Customer Added");
-        setFormState(blankCustomer);
+        addAlert("Vendor Added");
+        setFormState(blankVendor);
       })
       .catch((e) => {
-        addAlert("Error: Customer Not Added");
+        addAlert("Error: Vendor Not Added");
         console.log(e);
       });
   }
@@ -69,7 +69,7 @@ export default function AddCustomer() {
     e.preventDefault();
     const date = moment().format();
     const data = { ...formState, date };
-    addCustomer(data);
+    addVendor(data);
   };
 
   return (
@@ -77,7 +77,7 @@ export default function AddCustomer() {
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Paper className={classes.paper}>
-            <Title>Add Customer</Title>
+            <Title>Add Vendor</Title>
             <form
               className={classes.form}
               noValidate
@@ -85,34 +85,33 @@ export default function AddCustomer() {
               onSubmit={handleSubmit}
             >
               <Grid container spacing={3}>
-                <Grid item xs={12}>
+                <Grid item xs={6}>
                   <FormControl className={classes.formControl}>
                     <TextField
-                      id="company_name"
-                      label="Company Name"
-                      name="company_name"
-                      value={formState.company_name}
+                      id="vendor_name"
+                      label="Vendor Name"
+                      name="vendor_name"
+                      value={formState.vendor_name}
                       onChange={handleFormChange}
                     />
                   </FormControl>
                 </Grid>
-                <Grid item xs={6}>
-                  <FormControl className={classes.formControl}>
-                    <TextField
-                      id="first_name"
-                      label="First Name"
-                      name="first_name"
-                      value={formState.first_name}
-                      onChange={handleFormChange}
-                    />
-                  </FormControl>
-                </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={3}>
                   <TextField
-                    value={formState.last_name}
-                    id="last_name"
-                    label="Last Name"
-                    name="last_name"
+                    value={formState.part_number}
+                    id="part_number"
+                    label="Part Number"
+                    name="part_number"
+                    fullWidth
+                    onChange={handleFormChange}
+                  />
+                </Grid>
+                <Grid item xs={3}>
+                  <TextField
+                    value={formState.price_per_unit}
+                    id="price_per_unit"
+                    label="Price/Unit"
+                    name="price_per_unit"
                     fullWidth
                     onChange={handleFormChange}
                   />

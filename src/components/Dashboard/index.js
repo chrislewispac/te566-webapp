@@ -19,7 +19,9 @@ import ViewCustomers from "./Customers/ViewCustomers";
 import AddCustomer from "./Customers/AddCustomer";
 import ViewEmployees from "./Employees/ViewEmployees";
 import AddEmployee from "./Employees/AddEmployee";
-import SingleCustomerDashboard from "./Customers/SingleCustomerDashboard";
+import ViewVendors from "./Vendors/ViewVendors";
+import AddVendor from "./Vendors/AddVendor";
+// import SingleCustomerDashboard from "./Customers/SingleCustomerDashboard";
 import { Switch, Route, useRouteMatch } from "react-router-dom";
 import { connect } from "react-redux";
 
@@ -219,9 +221,9 @@ function Dashboard() {
             <Route exact path={`${path}/customers`}>
               <ViewCustomers />
             </Route>
-            <Route path={`${path}/customers/:id`}>
+            {/* <Route path={`${path}/customers/:id`}>
               <SingleCustomerDashboard />
-            </Route>
+            </Route> */}
             <Route path={`${path}/addEmployee`}>
               <AddEmployee />
             </Route>
@@ -231,6 +233,12 @@ function Dashboard() {
             {/* <Route path={`${path}/employees/:id`}>
               <SingleEmployeeDashboard />
             </Route> */}
+            <Route path={`${path}/addVendor`}>
+              <AddVendor />
+            </Route>
+            <Route exact path={`${path}/vendors`}>
+              <ViewVendors />
+            </Route>
           </Switch>
         </Container>
       </main>

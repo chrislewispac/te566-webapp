@@ -1,6 +1,5 @@
 import React from "react";
 import { useSelector } from "react-redux";
-// import Link from "@material-ui/core/Link";
 import { makeStyles } from "@material-ui/core/styles";
 import { Table, Paper, Grid, Button } from "@material-ui/core";
 import TableBody from "@material-ui/core/TableBody";
@@ -29,20 +28,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ViewCustomers() {
+export default function ViewVendors() {
   const classes = useStyles();
   const firestore = useFirestore();
 
-  useFirestoreConnect("customers");
+  useFirestoreConnect("vendors");
 
-  const d = useSelector((state) => state.firestore.ordered.customers) || []; //TODO: change to loading instead of empty array
-  const customers = d.filter((dd) => {
+  const d = useSelector((state) => state.firestore.ordered.vendors) || []; //TODO: change to loading instead of empty array
+  const vendors = d.filter((dd) => {
     return !dd.archived;
   });
 
-  const archiveCustomer = (id) => {
+  const archiveVendor = (id) => {
     firestore
-      .collection("customers")
+      .collection("vendors")
       .doc(id)
       .update({ archived: true })
       .then(() => {})
@@ -54,30 +53,34 @@ export default function ViewCustomers() {
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Paper className={classes.paper}>
-            <Title>Current Customers</Title>
+            <Title>Current Vendors</Title>
             <Table size="small">
               <TableHead>
                 <TableRow>
-                  <TableCell>Company Name</TableCell>
-                  <TableCell>Customer Name</TableCell>
+                  <TableCell>Vendor Name</TableCell>
+                  <TableCell>Part Number</TableCell>
+                  <TableCell>Price/Unit</TableCell>
                   <TableCell>Address</TableCell>
-                  <TableCell>City, State</TableCell>
+                  <TableCell>City</TableCell>
+                  <TableCell>State</TableCell>
                   <TableCell>Zip</TableCell>
                   <TableCell>Actions</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {customers.map((d) => (
+                {vendors.map((d) => (
                   <TableRow key={d.id}>
-                    <TableCell>{d.company_name}</TableCell>
-                    <TableCell>{`${d.first_name} ${d.last_name}`}</TableCell>
-                    <TableCell>{d.address}</TableCell>
-                    <TableCell>{`${d.city} ${d.state}`}</TableCell>
+                    <TableCell>{d.vendor_name}</TableCell>
+                    <TableCell>{d.part_number}</TableCell>
+                    <TableCell>{d.price_per_unit}</TableCell>
+                    <TableCell>{d.city}</TableCell>
+                    <TableCell>{d.state}</TableCell>
                     <TableCell>{d.zip}</TableCell>
+                    <TableCell>{d.salary}</TableCell>
                     <TableCell>
                       <Button
                         component={RouterLink}
-                        to={`/dashboard/customers/${d.id}`}
+                        to={`/dashboard/vendors/${d.id}`}
                         size="small"
                         color="primary"
                       >
@@ -87,7 +90,7 @@ export default function ViewCustomers() {
                         size="small"
                         color="secondary"
                         onClick={() => {
-                          archiveCustomer(d.id);
+                          archiveVendor(d.id);
                         }}
                       >
                         Archive

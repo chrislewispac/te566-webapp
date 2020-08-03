@@ -6,8 +6,6 @@ export const blankCustomer = {
   city: "",
   state: "",
   zip: "",
-  ssn: "",
-  num_witholdings: "",
-  salary: "",
+  company_name: "",
   archived: false,
 };

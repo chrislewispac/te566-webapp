@@ -123,7 +123,7 @@ export default function AddEmployee() {
                       id="city"
                       label="City"
                       name="city"
-                      value={formState.address}
+                      value={formState.city}
                       onChange={handleFormChange}
                     />
                   </FormControl>
