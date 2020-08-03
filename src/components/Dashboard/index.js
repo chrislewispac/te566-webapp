@@ -19,6 +19,7 @@ import ViewCustomers from "./Customers/ViewCustomers";
 import AddCustomer from "./Customers/AddCustomer";
 import ViewEmployees from "./Employees/ViewEmployees";
 import AddEmployee from "./Employees/AddEmployee";
+import PayEmployee from "./Payroll/PayEmployee";
 import ViewVendors from "./Vendors/ViewVendors";
 import AddVendor from "./Vendors/AddVendor";
 // import SingleCustomerDashboard from "./Customers/SingleCustomerDashboard";
@@ -238,6 +239,9 @@ function Dashboard() {
             </Route>
             <Route exact path={`${path}/vendors`}>
               <ViewVendors />
+            </Route>
+            <Route exact path={`${path}/payEmployee`}>
+              <PayEmployee />
             </Route>
           </Switch>
         </Container>
