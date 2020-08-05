@@ -14,6 +14,12 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import { useSnackbar } from "../../Snackbar";
+
+const ss_tax = 0.062;
+const fl_tax = 0;
+const fed_tax = 0.24;
+const medi_tax = 0.0765;
 
 const useStyles = makeStyles((theme) => ({
   seeMore: {
@@ -36,18 +42,36 @@ const useStyles = makeStyles((theme) => ({
 export default function ViewEmployees() {
   const classes = useStyles();
   const firestore = useFirestore();
+  const { addAlert } = useSnackbar();
   const [open, setOpen] = React.useState(false);
   const [employee, setEmployee] = React.useState({});
+  const [payrollEntry, setPayrollEntry] = React.useState({});
 
   const handleClickOpen = (e) => {
     setEmployee(() => e);
     setOpen(true);
-    // firestore
-    //   .collection("employees")
-    //   .doc(id)
-    //   .update({ archived: true })
-    //   .then(() => {})
-    //   .catch((e) => console.log(e));
+    const weekly_salary = (parseInt(e.salary) / 52).toFixed(2);
+    const federal_tax = (weekly_salary * fed_tax).toFixed(2);
+    const medicare_tax = (weekly_salary * medi_tax).toFixed(2);
+    const social_security_tax = (weekly_salary * ss_tax).toFixed(2);
+    const state_tax = (weekly_salary * fl_tax).toFixed(2);
+    const gross_pay = weekly_salary;
+    const amount_paid =
+      weekly_salary -
+      federal_tax -
+      medicare_tax -
+      social_security_tax -
+      state_tax;
+    let payroll_entry = {
+      gross_pay,
+      amount_paid,
+      employee_id: e.id,
+      federal_tax,
+      medicare_tax,
+      social_security_tax,
+      state_tax,
+    };
+    setPayrollEntry(payroll_entry);
   };
 
   const handleCancel = () => {
@@ -56,7 +80,18 @@ export default function ViewEmployees() {
 
   const handleOk = () => {
     console.log("commit to paying employee here");
+    console.log(payrollEntry);
     setOpen(false);
+    return firestore
+      .collection("payroll_events")
+      .add(payrollEntry)
+      .then(() => {
+        addAlert("Payroll Event Added");
+      })
+      .catch((e) => {
+        addAlert("Error: Payroll Event Not Added");
+        console.log(e);
+      });
   };
 
   useFirestoreConnect("employees");
@@ -130,13 +165,24 @@ export default function ViewEmployees() {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Are you sure you want to pay{" "}
-            {`${employee.first_name} ${employee.last_name}`}? The following
-            changes will occur...
+            Are you sure you want to issue the following paycheck to{" "}
+            {`${employee.first_name} ${employee.last_name}`}? The changes will
+            also be reflected on your income statement and balance sheet.
             <br />
             <br />
-            <strong>Weekly Employee Pay</strong>:
-            {` ${(parseInt(employee.salary) / 52).toFixed(2)}`}
+            <strong>Weekly Gross Pay</strong>: ${payrollEntry.gross_pay}
+            <br />
+            <strong>Weekly Medicare Tax</strong>: ${payrollEntry.medicare_tax}
+            <br />
+            <strong>Weekly Social Security Tax</strong>: $
+            {payrollEntry.social_security_tax}
+            <br />
+            <strong>Weekly Federal Income Tax</strong>: $
+            {payrollEntry.federal_tax}
+            <br />
+            <strong>Weekly State Income Tax</strong>: ${payrollEntry.state_tax}
+            <br />
+            <strong>Weekly Net Pay</strong>: ${payrollEntry.amount_paid}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
