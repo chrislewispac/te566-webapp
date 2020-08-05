@@ -3,7 +3,6 @@ import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Drawer from "@material-ui/core/Drawer";
-import Box from "@material-ui/core/Box";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import List from "@material-ui/core/List";
@@ -15,6 +14,8 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { MainListItems, SecondaryListItems } from "./listItems";
 import MainDashboard from "./MainDashboard";
+import IncomeStatement from "./IncomeStatement";
+import BalanceSheet from "./BalanceSheet";
 import ViewCustomers from "./Customers/ViewCustomers";
 import AddCustomer from "./Customers/AddCustomer";
 import ViewEmployees from "./Employees/ViewEmployees";
@@ -25,16 +26,6 @@ import AddVendor from "./Vendors/AddVendor";
 // import SingleCustomerDashboard from "./Customers/SingleCustomerDashboard";
 import { Switch, Route, useRouteMatch } from "react-router-dom";
 import { connect } from "react-redux";
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © Christopher Lewis "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
 
 const drawerWidth = 260;
 
@@ -212,9 +203,15 @@ function Dashboard() {
           <Switch>
             <Route exact path={path}>
               <MainDashboard />
-              <Box pt={4}>
-                <Copyright />
-              </Box>
+            </Route>
+            <Route path={`${path}/incomeStatement`}>
+              <IncomeStatement />
+            </Route>
+            <Route path={`${path}/balanceSheet`}>
+              <BalanceSheet />
+            </Route>
+            <Route path={`${path}/addCustomer`}>
+              <AddCustomer />
             </Route>
             <Route path={`${path}/addCustomer`}>
               <AddCustomer />

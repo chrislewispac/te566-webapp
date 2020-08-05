@@ -3,7 +3,7 @@ import React from "react";
 // import { useFirestoreConnect } from "react-redux-firebase";
 // import { useSelector } from "react-redux";
 
-export default function CurrentPatients() {
+export default function MainDashboard() {
   // const firestore = useFirestore();
   // const { notificationDispatch } = useNotificationContext();
 

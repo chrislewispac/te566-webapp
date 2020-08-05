@@ -145,6 +145,7 @@ export default function AddEmployee() {
                       id="zip"
                       label="Zip"
                       name="zip"
+                      type="number"
                       value={formState.zip}
                       onChange={handleFormChange}
                     />
@@ -156,6 +157,7 @@ export default function AddEmployee() {
                       id="ssn"
                       label="SSN"
                       name="ssn"
+                      type="number"
                       value={formState.ssn}
                       onChange={handleFormChange}
                     />
@@ -167,6 +169,7 @@ export default function AddEmployee() {
                       id="num_witholdings"
                       label="Number of Witholdings"
                       name="num_witholdings"
+                      type="number"
                       value={formState.num_witholdings}
                       onChange={handleFormChange}
                     />
@@ -178,6 +181,7 @@ export default function AddEmployee() {
                       id="salary"
                       label="Salary"
                       name="salary"
+                      type="number"
                       value={formState.salary}
                       onChange={handleFormChange}
                     />

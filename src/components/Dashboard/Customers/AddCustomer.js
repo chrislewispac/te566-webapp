@@ -156,6 +156,7 @@ export default function AddCustomer() {
                       id="zip"
                       label="Zip"
                       name="zip"
+                      type="number"
                       value={formState.zip}
                       onChange={handleFormChange}
                     />

@@ -102,6 +102,7 @@ export default function AddVendor() {
                     id="part_number"
                     label="Part Number"
                     name="part_number"
+                    type="number"
                     fullWidth
                     onChange={handleFormChange}
                   />
@@ -112,6 +113,7 @@ export default function AddVendor() {
                     id="price_per_unit"
                     label="Price/Unit"
                     name="price_per_unit"
+                    type="number"
                     fullWidth
                     onChange={handleFormChange}
                   />
@@ -155,6 +157,7 @@ export default function AddVendor() {
                       id="zip"
                       label="Zip"
                       name="zip"
+                      type="number"
                       value={formState.zip}
                       onChange={handleFormChange}
                     />

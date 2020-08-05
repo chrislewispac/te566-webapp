@@ -54,12 +54,12 @@ const MainListItemsComponent = (props) => {
         icon={<DashboardIcon />}
       /> */}
       <ListItemLink
-        to="/incomeStatement"
+        to="/dashboard/incomeStatement"
         primary="Income Statement"
         icon={<DescriptionIcon />}
       />
       <ListItemLink
-        to="/balanceSheet"
+        to="/dashboard/balanceSheet"
         primary="Balance Sheet"
         icon={<AccountBalanceIcon />}
       />
