@@ -23,6 +23,7 @@ import AddEmployee from "./Employees/AddEmployee";
 import PayEmployee from "./Payroll/PayEmployee";
 import ViewVendors from "./Vendors/ViewVendors";
 import AddVendor from "./Vendors/AddVendor";
+import ViewPayroll from "./Payroll/ViewPayroll";
 // import SingleCustomerDashboard from "./Customers/SingleCustomerDashboard";
 import { Switch, Route, useRouteMatch } from "react-router-dom";
 import { connect } from "react-redux";
@@ -239,6 +240,9 @@ function Dashboard() {
             </Route>
             <Route exact path={`${path}/payEmployee`}>
               <PayEmployee />
+            </Route>
+            <Route exact path={`${path}/viewPayroll`}>
+              <ViewPayroll />
             </Route>
           </Switch>
         </Container>

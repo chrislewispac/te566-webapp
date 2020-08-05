@@ -149,7 +149,7 @@ const MainListItemsComponent = (props) => {
           />
           <ListItemLink
             className={classes.nested}
-            to="/dashboard/viewPayrollEvents"
+            to="/dashboard/viewPayroll"
             primary="View Payroll Events"
             icon={<ViewListIcon />}
           />
