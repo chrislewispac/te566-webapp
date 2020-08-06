@@ -86,7 +86,7 @@ export default function CreatePurchaseOrder() {
           .doc(trucks.id)
           .update({
             units_in_stock:
-              parseFloat(trucks.units_in_stock) - parseFloat(quantity),
+              parseFloat(trucks.units_in_stock) + parseFloat(quantity),
           })
           .then(() => {
             //update income statement

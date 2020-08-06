@@ -65,8 +65,7 @@ export default function ViewEmployees() {
                       {parseFloat(d.cost_per_unit).toFixed(2)}
                     </TableCell>
                     <TableCell>
-                      {(parseFloat(d.value_per_unit) -
-                        parseFloat(d.cost_per_unit)) *
+                      {parseFloat(d.value_per_unit) *
                         parseFloat(d.units_in_stock)}
                     </TableCell>
                   </TableRow>
