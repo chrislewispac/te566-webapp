@@ -94,9 +94,6 @@ export default function ViewCustomers() {
                   parseFloat(i_statement.sales) +
                   parseFloat(total_invoice_amount)
                 ).toFixed(2),
-                cogs: (
-                  parseFloat(i_statement.cogs) + parseFloat(quantity)
-                ).toFixed(2),
               })
               .then(() => {
                 //update balance sheet

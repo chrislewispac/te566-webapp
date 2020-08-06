@@ -55,7 +55,7 @@ export default function CreatePurchaseOrder() {
 
   const issueInvoice = () => {
     setOpen(false);
-    addAlert("Invoice Event Added");
+    addAlert("Purchase Order Event Added");
     const { quantity } = formState || 0;
     const { price_per_unit, part_number } = vendor;
     const total_purchase_order_amount = quantity * price_per_unit;
@@ -69,29 +69,70 @@ export default function CreatePurchaseOrder() {
       price_per_unit,
       total_purchase_order_amount,
     };
-
+    let i_statement = is[0];
+    let b_sheet = bs[0];
     return firestore
       .collection("purchase_order_history")
       .add(purchaseOrderEntry)
       .then(() => {
         addAlert("Purchase Order Added to History");
+        firestore
+          .collection("inventory")
+          .doc(trucks.id)
+          .update({
+            units_in_stock:
+              parseFloat(trucks.units_in_stock) - parseFloat(quantity),
+          })
+          .then(() => {
+            //update income statement
+            firestore
+              .collection("income_statement")
+              .doc(i_statement.id)
+              .update({
+                cogs: (
+                  parseFloat(i_statement.cogs) +
+                  parseFloat(total_purchase_order_amount)
+                ).toFixed(2),
+              })
+              .then(() => {
+                //update balance sheet
+
+                firestore
+                  .collection("balance_sheet")
+                  .doc(b_sheet.id)
+                  .update({
+                    cash: (
+                      parseFloat(b_sheet.cash) -
+                      parseFloat(total_purchase_order_amount)
+                    ).toFixed(2),
+                    inventory: (
+                      parseFloat(b_sheet.inventory) +
+                      parseFloat(quantity) * parseFloat(2)
+                    ).toFixed(2),
+                  })
+                  .then(() => {
+                    //done!
+                  })
+                  .catch((e) => {
+                    addAlert("Error: Invoice Event Not Added");
+                    console.log(e);
+                  });
+              })
+              .catch((e) => {
+                addAlert("Error: Invoice Event Not Added");
+                console.log(e);
+              });
+          })
+          .catch((e) => {
+            addAlert("Error: Invoice Event Not Added");
+            console.log(e);
+          });
       })
       .catch((e) => {
         addAlert("Error: Purchase Order Event Not Added");
         console.log(e);
       });
   };
-
-  useFirestoreConnect("vendors");
-  useFirestoreConnect("inventory");
-
-  const d = useSelector((state) => state.firestore.ordered.vendors) || []; //TODO: change to loading instead of empty array
-  const vendors = d.filter((dd) => {
-    return !dd.archived;
-  });
-
-  const i = useSelector((state) => state.firestore.ordered.inventory) || [];
-  const trucks = i[0];
 
   const handleOpen = (id) => {
     const vendor = d.filter((dd) => {
@@ -101,12 +142,30 @@ export default function CreatePurchaseOrder() {
     setOpen(true);
   };
 
+  useFirestoreConnect("vendors");
+  useFirestoreConnect("inventory");
+  useFirestoreConnect("income_statement");
+  useFirestoreConnect("balance_sheet");
+
+  const d = useSelector((state) => state.firestore.ordered.vendors) || []; //TODO: change to loading instead of empty array
+  const vendors = d.filter((dd) => {
+    return !dd.archived;
+  });
+
+  const i = useSelector((state) => state.firestore.ordered.inventory) || [];
+  const trucks = i[0];
+  const is =
+    useSelector((state) => state.firestore.ordered.income_statement) || []; //TODO: change to loading instead of empty array
+
+  const bs =
+    useSelector((state) => state.firestore.ordered.balance_sheet) || []; //TODO: change to loading instead of empty array
+
   return (
     <React.Fragment>
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Paper className={classes.paper}>
-            <Title>Invoice a Vendor</Title>
+            <Title>Create a Purchase Order</Title>
             <Table size="small">
               <TableHead>
                 <TableRow>
