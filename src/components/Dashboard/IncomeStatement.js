@@ -1,6 +1,6 @@
 import React from "react";
 import { Grid, Paper } from "@material-ui/core";
-import { useFirestoreConnect } from "react-redux-firebase";
+import { useFirestoreConnect, isEmpty, isLoaded } from "react-redux-firebase";
 import { useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
@@ -38,18 +38,22 @@ export default function MainDashboard() {
   const income_statement =
     useSelector((state) => state.firestore.ordered.income_statement) || []; //TODO: change to loading instead of empty array
 
-  let is = income_statement[0];
+  let is = income_statement[0] || {};
+  let gross_profit =
+    (parseFloat(is.sales) - parseFloat(is.cogs)).toFixed(2) || 0;
+  let total_expenses =
+    (
+      parseFloat(is.payroll) +
+      parseFloat(is.payroll_withholding) +
+      parseFloat(is.bills) +
+      parseFloat(is.annual_expenses)
+    ).toFixed(2) || 0;
+  let net_income =
+    (parseFloat(gross_profit) - parseFloat(total_expenses)).toFixed(2) || 0;
 
-  let gross_profit = (parseFloat(is.sales) - parseFloat(is.cogs)).toFixed(2);
-  let total_expenses = (
-    parseFloat(is.payroll) +
-    parseFloat(is.payroll_withholding) +
-    parseFloat(is.bills) +
-    parseFloat(is.annual_expenses)
-  ).toFixed(2);
-  let net_income = (
-    parseFloat(gross_profit) - parseFloat(total_expenses)
-  ).toFixed(2);
+  if (isEmpty(income_statement) || !isLoaded(income_statement)) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <React.Fragment>

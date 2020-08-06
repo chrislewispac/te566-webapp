@@ -7,7 +7,12 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Title from "../Title";
-import { useFirestoreConnect, useFirestore } from "react-redux-firebase";
+import {
+  useFirestoreConnect,
+  useFirestore,
+  isEmpty,
+  isLoaded,
+} from "react-redux-firebase";
 // import { Link as RouterLink } from "react-router-dom";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -159,6 +164,10 @@ export default function CreatePurchaseOrder() {
 
   const bs =
     useSelector((state) => state.firestore.ordered.balance_sheet) || []; //TODO: change to loading instead of empty array
+
+  if (isEmpty(i) || !isLoaded(i)) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <React.Fragment>
