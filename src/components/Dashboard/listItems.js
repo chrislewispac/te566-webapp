@@ -219,12 +219,6 @@ const MainListItemsComponent = (props) => {
         <List component="div" disablePadding>
           <ListItemLink
             className={classes.nested}
-            to="/dashboard/addInventory"
-            primary="Add Inventory"
-            icon={<AddIcon />}
-          />
-          <ListItemLink
-            className={classes.nested}
             to="/dashboard/viewInventory"
             primary="View Inventory"
             icon={<ViewListIcon />}

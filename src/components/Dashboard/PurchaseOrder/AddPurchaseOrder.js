@@ -109,7 +109,7 @@ export default function ViewEmployees() {
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Paper className={classes.paper}>
-            <Title>Pay an Employee</Title>
+            <Title>Add Purchase Order</Title>
             <Table size="small">
               <TableHead>
                 <TableRow>
@@ -157,7 +157,9 @@ export default function ViewEmployees() {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">{"Pay an Employee?"}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">
+          {"Use Google's location service?"}
+        </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             Are you sure you want to issue the following paycheck to{" "}

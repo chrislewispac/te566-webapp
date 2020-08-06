@@ -20,10 +20,15 @@ import ViewCustomers from "./Customers/ViewCustomers";
 import AddCustomer from "./Customers/AddCustomer";
 import ViewEmployees from "./Employees/ViewEmployees";
 import AddEmployee from "./Employees/AddEmployee";
-import PayEmployee from "./Payroll/PayEmployee";
 import ViewVendors from "./Vendors/ViewVendors";
 import AddVendor from "./Vendors/AddVendor";
+import PayEmployee from "./Payroll/PayEmployee";
 import ViewPayroll from "./Payroll/ViewPayroll";
+import AddInvoice from "./Invoice/AddInvoice";
+import ViewInvoices from "./Invoice/ViewInvoices";
+import AddPurchaseOrder from "./PurchaseOrder/AddPurchaseOrder";
+import ViewPurchaseOrders from "./PurchaseOrder/ViewPurchaseOrders";
+import ViewInventory from "./Inventory/ViewInventory";
 // import SingleCustomerDashboard from "./Customers/SingleCustomerDashboard";
 import { Switch, Route, useRouteMatch } from "react-router-dom";
 import { connect } from "react-redux";
@@ -243,6 +248,21 @@ function Dashboard() {
             </Route>
             <Route exact path={`${path}/viewPayroll`}>
               <ViewPayroll />
+            </Route>
+            <Route exact path={`${path}/createInvoice`}>
+              <AddInvoice />
+            </Route>
+            <Route exact path={`${path}/viewInvoices`}>
+              <ViewInvoices />
+            </Route>
+            <Route exact path={`${path}/createPurchaseOrder`}>
+              <AddPurchaseOrder />
+            </Route>
+            <Route exact path={`${path}/viewPurchaseOrders`}>
+              <ViewPurchaseOrders />
+            </Route>
+            <Route exact path={`${path}/viewInventory`}>
+              <ViewInventory />
             </Route>
           </Switch>
         </Container>
