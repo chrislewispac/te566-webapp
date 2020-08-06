@@ -50,7 +50,9 @@ export default function ViewEmployees() {
   const handleClickOpen = (e) => {
     setEmployee(() => e);
     setOpen(true);
-    const weekly_salary = (parseInt(e.salary) / 52).toFixed(2);
+    console.log(is[0].id);
+    console.log(bs[0].id);
+    const weekly_salary = (parseFloat(e.salary) / 52).toFixed(2);
     const federal_tax = (weekly_salary * fed_tax).toFixed(2);
     const medicare_tax = (weekly_salary * medi_tax).toFixed(2);
     const social_security_tax = (weekly_salary * ss_tax).toFixed(2);
@@ -85,6 +87,47 @@ export default function ViewEmployees() {
       .add(payrollEntry)
       .then(() => {
         addAlert("Payroll Event Added");
+        //update income statement
+        const i = is[0];
+        const { payroll, payroll_withholding, id } = i;
+        let newPayroll =
+          parseFloat(payroll) + parseFloat(payrollEntry.amount_paid);
+        let newPayrollWithholding =
+          parseFloat(payroll_withholding) +
+          parseFloat(payrollEntry.federal_tax) +
+          parseFloat(payrollEntry.medicare_tax) +
+          parseFloat(payrollEntry.social_security_tax) +
+          parseFloat(payrollEntry.state_tax);
+
+        firestore
+          .collection("income_statement")
+          .doc(id)
+          .update({
+            payroll: newPayroll,
+            payroll_withholding: newPayrollWithholding,
+          })
+          .then(() => {
+            //update balance sheet
+            const b = bs[0];
+            const { cash, id } = b;
+            firestore
+              .collection("balance_sheet")
+              .doc(id)
+              .update({
+                cash: parseFloat(cash) - parseFloat(payrollEntry.amount_paid),
+              })
+              .then(() => {
+                //DONE
+              })
+              .catch((e) => {
+                addAlert("Error: Updating Balance Sheet");
+                console.log(e);
+              });
+          })
+          .catch((e) => {
+            addAlert("Error: Updating Income Statement");
+            console.log(e);
+          });
       })
       .catch((e) => {
         addAlert("Error: Payroll Event Not Added");
@@ -93,11 +136,19 @@ export default function ViewEmployees() {
   };
 
   useFirestoreConnect("employees");
+  useFirestoreConnect("income_statement");
+  useFirestoreConnect("balance_sheet");
 
   const d = useSelector((state) => state.firestore.ordered.employees) || []; //TODO: change to loading instead of empty array
   const employees = d.filter((dd) => {
     return !dd.archived;
   });
+
+  const is =
+    useSelector((state) => state.firestore.ordered.income_statement) || []; //TODO: change to loading instead of empty array
+
+  const bs =
+    useSelector((state) => state.firestore.ordered.balance_sheet) || []; //TODO: change to loading instead of empty array
 
   const payEmployee = (id) => {
     let e = employees.filter((e) => e.id === id)[0];

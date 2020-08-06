@@ -64,8 +64,8 @@ export default function ViewEmployees() {
                   </TableRow>
                 ))}
               </TableBody>
-              <br />
             </Table>
+            <br />
           </Paper>
         </Grid>
       </Grid>

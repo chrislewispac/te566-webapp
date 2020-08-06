@@ -39,6 +39,42 @@ export default function MainDashboard() {
 
   let bs = balance_sheet[0];
 
+  let total_current_assets = (
+    parseFloat(bs.cash) +
+    parseFloat(bs.inventory) +
+    parseFloat(bs.accounts_receivable)
+  ).toFixed(2);
+
+  let total_fixed_assets = (
+    parseFloat(bs.land_buildings) +
+    parseFloat(bs.equipment) +
+    parseFloat(bs.furniture_fixtures)
+  ).toFixed(2);
+
+  let total_assets = (
+    parseFloat(total_current_assets) + parseFloat(total_fixed_assets)
+  ).toFixed(2);
+
+  let total_current_liabilities = (
+    parseFloat(bs.accounts_payable) +
+    parseFloat(bs.notes_payable) +
+    parseFloat(bs.accruals)
+  ).toFixed(2);
+
+  let total_long_term_debt = parseFloat(bs.mortgage).toFixed(2);
+
+  let total_liabilities = (
+    parseFloat(total_current_liabilities) + parseFloat(total_long_term_debt)
+  ).toFixed(2);
+
+  let net_worth = (
+    parseFloat(total_assets) - parseFloat(total_liabilities)
+  ).toFixed(2);
+
+  let total_liabilities_and_net_worth = (
+    parseFloat(net_worth) + parseFloat(total_liabilities)
+  ).toFixed(2);
+
   return (
     <React.Fragment>
       <Grid container spacing={2}>
@@ -81,7 +117,7 @@ export default function MainDashboard() {
                   <TableCell component="th" scope="row">
                     <strong>Total Current Assets</strong>
                   </TableCell>
-                  <TableCell align="right">$ calculated value</TableCell>
+                  <TableCell align="right">$ {total_current_assets}</TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell component="th" scope="row">
@@ -111,13 +147,13 @@ export default function MainDashboard() {
                   <TableCell component="th" scope="row">
                     <strong>Total Fixed Assets</strong>
                   </TableCell>
-                  <TableCell align="right">$ calculated value</TableCell>
+                  <TableCell align="right">$ {total_fixed_assets}</TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell component="th" scope="row">
                     <strong>Total Assets</strong>
                   </TableCell>
-                  <TableCell align="right">$ calculated value</TableCell>
+                  <TableCell align="right">$ {total_assets}</TableCell>
                 </TableRow>
               </TableBody>
             </Table>
@@ -165,7 +201,9 @@ export default function MainDashboard() {
                   <TableCell component="th" scope="row">
                     <strong>Total Current Liabilities</strong>
                   </TableCell>
-                  <TableCell align="right">$ calculated value</TableCell>
+                  <TableCell align="right">
+                    $ {total_current_liabilities}
+                  </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell component="th" scope="row">
@@ -179,25 +217,27 @@ export default function MainDashboard() {
                   <TableCell component="th" scope="row">
                     <strong>Total Long Term Debt</strong>
                   </TableCell>
-                  <TableCell align="right">$ calculated value</TableCell>
+                  <TableCell align="right">$ {total_long_term_debt}</TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell component="th" scope="row">
                     <strong>Total Liabilities</strong>
                   </TableCell>
-                  <TableCell align="right">$ calculated value</TableCell>
+                  <TableCell align="right">$ {total_liabilities}</TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell component="th" scope="row">
                     <strong>Net Worth</strong>
                   </TableCell>
-                  <TableCell align="right">$ calculated value</TableCell>
+                  <TableCell align="right">$ {net_worth}</TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell component="th" scope="row">
                     <strong>Total Liabilities & Net Worth</strong>
                   </TableCell>
-                  <TableCell align="right">$ calculated value</TableCell>
+                  <TableCell align="right">
+                    $ {total_liabilities_and_net_worth}
+                  </TableCell>
                 </TableRow>
               </TableBody>
             </Table>

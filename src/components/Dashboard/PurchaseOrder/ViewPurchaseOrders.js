@@ -30,50 +30,43 @@ const useStyles = makeStyles((theme) => ({
 export default function ViewEmployees() {
   const classes = useStyles();
 
-  useFirestoreConnect("payroll_events");
-  useFirestoreConnect("employees");
+  useFirestoreConnect("purchase_order_history");
 
-  const payroll_events =
-    useSelector((state) => state.firestore.ordered.payroll_events) || []; //TODO: change to loading instead of empty array
-
-  const employees =
-    useSelector((state) => state.firestore.data.employees) || {}; //TODO: change to loading instead of empty array
+  const purchase_orders =
+    useSelector((state) => state.firestore.ordered.purchase_order_history) ||
+    []; //TODO: change to loading instead of empty array
 
   return (
     <React.Fragment>
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Paper className={classes.paper}>
-            <Title>View Purchase Orders</Title>
+            <Title>View Purchase</Title>
             <Table size="small">
               <TableHead>
                 <TableRow>
-                  <TableCell>Employee</TableCell>
-                  <TableCell>Salary</TableCell>
-                  <TableCell>Fed Tax</TableCell>
-                  <TableCell>State Tax</TableCell>
-                  <TableCell>SS Tax</TableCell>
-                  <TableCell>Medicare Tax</TableCell>
-                  <TableCell>Amount Paid</TableCell>
+                  <TableCell>Date</TableCell>
+                  <TableCell>Supplier</TableCell>
+                  <TableCell>Part</TableCell>
+                  <TableCell>Quantity</TableCell>
+                  <TableCell>Price/Unit</TableCell>
+                  <TableCell>Total</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {payroll_events.map((d) => (
+                {purchase_orders.map((d) => (
                   <TableRow key={d.id}>
-                    <TableCell>{`${employees[d.employee_id].first_name} ${
-                      employees[d.employee_id].last_name
-                    }`}</TableCell>
-                    <TableCell>{d.gross_pay}</TableCell>
-                    <TableCell>{d.federal_tax}</TableCell>
-                    <TableCell>{d.state_tax}</TableCell>
-                    <TableCell>{d.social_security_tax}</TableCell>
-                    <TableCell>{d.medicare_tax}</TableCell>
-                    <TableCell>{d.amount_paid}</TableCell>
+                    <TableCell>{d.date}</TableCell>
+                    <TableCell>{d.supplier}</TableCell>
+                    <TableCell>Truck</TableCell>
+                    <TableCell>{d.quantity}</TableCell>
+                    <TableCell>{d.price_per_unit}</TableCell>
+                    <TableCell>{d.total_purchase_order_amount}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
-            <div className={classes.seeMore}></div>
+            <br />
           </Paper>
         </Grid>
       </Grid>

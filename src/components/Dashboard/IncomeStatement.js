@@ -40,6 +40,17 @@ export default function MainDashboard() {
 
   let is = income_statement[0];
 
+  let gross_profit = (parseFloat(is.sales) - parseFloat(is.cogs)).toFixed(2);
+  let total_expenses = (
+    parseFloat(is.payroll) +
+    parseFloat(is.payroll_withholding) +
+    parseFloat(is.bills) +
+    parseFloat(is.annual_expenses)
+  ).toFixed(2);
+  let net_income = (
+    parseFloat(gross_profit) - parseFloat(total_expenses)
+  ).toFixed(2);
+
   return (
     <React.Fragment>
       <Grid container spacing={2}>
@@ -73,7 +84,7 @@ export default function MainDashboard() {
                   <TableCell component="th" scope="row">
                     <strong>Gross Profit</strong>
                   </TableCell>
-                  <TableCell align="right">$ calculated value</TableCell>
+                  <TableCell align="right">$ {gross_profit}</TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell component="th" scope="row">
@@ -113,37 +124,14 @@ export default function MainDashboard() {
                   <TableCell component="th" scope="row">
                     <strong>Total Expenses</strong>
                   </TableCell>
-                  <TableCell align="right">$ calculated value</TableCell>
+                  <TableCell align="right">$ {total_expenses}</TableCell>
                 </TableRow>
-                <TableRow>
-                  <TableCell component="th" scope="row">
-                    Other Income
-                  </TableCell>
-                  <TableCell align="right">
-                    $ {is.other_income.toFixed(2)}
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell component="th" scope="row">
-                    Operating Income
-                  </TableCell>
-                  <TableCell align="right">
-                    $ {is.operating_income.toFixed(2)}
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell component="th" scope="row">
-                    Income Taxes
-                  </TableCell>
-                  <TableCell align="right">
-                    $ {is.income_taxes.toFixed(2)}
-                  </TableCell>
-                </TableRow>
+
                 <TableRow>
                   <TableCell component="th" scope="row">
                     <strong>Net Income</strong>
                   </TableCell>
-                  <TableCell align="right">$ calculated value</TableCell>
+                  <TableCell align="right">$ {net_income}</TableCell>
                 </TableRow>
               </TableBody>
             </Table>
