@@ -50,8 +50,6 @@ export default function ViewEmployees() {
   const handleClickOpen = (e) => {
     setEmployee(() => e);
     setOpen(true);
-    console.log(is[0].id);
-    console.log(bs[0].id);
     const weekly_salary = (parseFloat(e.salary) / 52).toFixed(2);
     const federal_tax = (weekly_salary * fed_tax).toFixed(2);
     const medicare_tax = (weekly_salary * medi_tax).toFixed(2);

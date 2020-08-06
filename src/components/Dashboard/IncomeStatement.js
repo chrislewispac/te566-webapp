@@ -72,13 +72,17 @@ export default function MainDashboard() {
                   <TableCell component="th" scope="row">
                     Sales
                   </TableCell>
-                  <TableCell align="right">$ {is.sales.toFixed(2)}</TableCell>
+                  <TableCell align="right">
+                    $ {parseFloat(is.sales).toFixed(2)}
+                  </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell component="th" scope="row">
                     COGS
                   </TableCell>
-                  <TableCell align="right">$ {is.cogs.toFixed(2)}</TableCell>
+                  <TableCell align="right">
+                    $ {parseFloat(is.cogs).toFixed(2)}
+                  </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell component="th" scope="row">
@@ -96,28 +100,32 @@ export default function MainDashboard() {
                   <TableCell component="th" scope="row">
                     Payroll
                   </TableCell>
-                  <TableCell align="right">$ {is.payroll.toFixed(2)}</TableCell>
+                  <TableCell align="right">
+                    $ {parseFloat(is.payroll).toFixed(2)}
+                  </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell component="th" scope="row">
                     Payroll Withholding
                   </TableCell>
                   <TableCell align="right">
-                    $ {is.payroll_withholding.toFixed(2)}
+                    $ {parseFloat(is.payroll_withholding).toFixed(2)}
                   </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell component="th" scope="row">
                     Bills
                   </TableCell>
-                  <TableCell align="right">$ {is.bills.toFixed(2)}</TableCell>
+                  <TableCell align="right">
+                    $ {parseFloat(is.bills).toFixed(2)}
+                  </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell component="th" scope="row">
                     Annual Expenses
                   </TableCell>
                   <TableCell align="right">
-                    $ {is.annual_expenses.toFixed(2)}
+                    $ {parseFloat(is.annual_expenses).toFixed(2)}
                   </TableCell>
                 </TableRow>
                 <TableRow>

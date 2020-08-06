@@ -68,28 +68,75 @@ export default function ViewCustomers() {
       customer_company_name: customer.company_name,
       total_invoice_amount,
     };
+    let i_statement = is[0];
+    let b_sheet = bs[0];
+
     return firestore
       .collection("invoice_history")
       .add(invoiceEntry)
       .then(() => {
         addAlert("Invoice Added to History");
+        //update inventory
+        firestore
+          .collection("inventory")
+          .doc(trucks.id)
+          .update({
+            units_in_stock:
+              parseFloat(trucks.units_in_stock) - parseFloat(quantity),
+          })
+          .then(() => {
+            //update income statement
+            firestore
+              .collection("income_statement")
+              .doc(i_statement.id)
+              .update({
+                sales: (
+                  parseFloat(i_statement.sales) +
+                  parseFloat(total_invoice_amount)
+                ).toFixed(2),
+                cogs: (
+                  parseFloat(i_statement.cogs) + parseFloat(quantity)
+                ).toFixed(2),
+              })
+              .then(() => {
+                //update balance sheet
+
+                firestore
+                  .collection("balance_sheet")
+                  .doc(b_sheet.id)
+                  .update({
+                    cash: (
+                      parseFloat(b_sheet.cash) +
+                      parseFloat(invoiceEntry.total_invoice_amount)
+                    ).toFixed(2),
+                    inventory: (
+                      parseFloat(b_sheet.inventory) -
+                      parseFloat(quantity) * parseFloat(price_per_unit)
+                    ).toFixed(2),
+                  })
+                  .then(() => {
+                    //done!
+                  })
+                  .catch((e) => {
+                    addAlert("Error: Invoice Event Not Added");
+                    console.log(e);
+                  });
+              })
+              .catch((e) => {
+                addAlert("Error: Invoice Event Not Added");
+                console.log(e);
+              });
+          })
+          .catch((e) => {
+            addAlert("Error: Invoice Event Not Added");
+            console.log(e);
+          });
       })
       .catch((e) => {
         addAlert("Error: Invoice Event Not Added");
         console.log(e);
       });
   };
-
-  useFirestoreConnect("customers");
-  useFirestoreConnect("inventory");
-
-  const d = useSelector((state) => state.firestore.ordered.customers) || []; //TODO: change to loading instead of empty array
-  const customers = d.filter((dd) => {
-    return !dd.archived;
-  });
-
-  const i = useSelector((state) => state.firestore.ordered.inventory) || [];
-  const trucks = i[0];
 
   const handleOpen = (id) => {
     const customer = d.filter((dd) => {
@@ -98,6 +145,24 @@ export default function ViewCustomers() {
     setCustomer(customer[0]);
     setOpen(true);
   };
+
+  useFirestoreConnect("customers");
+  useFirestoreConnect("inventory");
+  useFirestoreConnect("income_statement");
+  useFirestoreConnect("balance_sheet");
+
+  const d = useSelector((state) => state.firestore.ordered.customers) || []; //TODO: change to loading instead of empty array
+  const customers = d.filter((dd) => {
+    return !dd.archived;
+  });
+
+  const i = useSelector((state) => state.firestore.ordered.inventory) || [];
+  const trucks = i[0];
+  const is =
+    useSelector((state) => state.firestore.ordered.income_statement) || []; //TODO: change to loading instead of empty array
+
+  const bs =
+    useSelector((state) => state.firestore.ordered.balance_sheet) || []; //TODO: change to loading instead of empty array
 
   return (
     <React.Fragment>

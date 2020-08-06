@@ -95,14 +95,16 @@ export default function MainDashboard() {
                   <TableCell component="th" scope="row">
                     Cash
                   </TableCell>
-                  <TableCell align="right">$ {bs.cash.toFixed(2)}</TableCell>
+                  <TableCell align="right">
+                    $ {parseFloat(bs.cash).toFixed(2)}
+                  </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell component="th" scope="row">
                     Accounts Receivable
                   </TableCell>
                   <TableCell align="right">
-                    $ {bs.accounts_receivable.toFixed(2)}
+                    $ {parseFloat(bs.accounts_receivable).toFixed(2)}
                   </TableCell>
                 </TableRow>
                 <TableRow>
@@ -110,7 +112,7 @@ export default function MainDashboard() {
                     Inventory
                   </TableCell>
                   <TableCell align="right">
-                    $ {bs.inventory.toFixed(2)}
+                    $ {parseFloat(bs.inventory).toFixed(2)}
                   </TableCell>
                 </TableRow>
                 <TableRow>
@@ -124,7 +126,7 @@ export default function MainDashboard() {
                     Land/Buildings
                   </TableCell>
                   <TableCell align="right">
-                    $ {bs.land_buildings.toFixed(2)}
+                    $ {parseFloat(bs.land_buildings).toFixed(2)}
                   </TableCell>
                 </TableRow>
                 <TableRow>
@@ -132,7 +134,7 @@ export default function MainDashboard() {
                     Equipment
                   </TableCell>
                   <TableCell align="right">
-                    $ {bs.equipment.toFixed(2)}
+                    $ {parseFloat(bs.equipment).toFixed(2)}
                   </TableCell>
                 </TableRow>
                 <TableRow>
@@ -140,7 +142,7 @@ export default function MainDashboard() {
                     Furniture & Fixtures
                   </TableCell>
                   <TableCell align="right">
-                    $ {bs.furniture_fixtures.toFixed(2)}
+                    $ {parseFloat(bs.furniture_fixtures).toFixed(2)}
                   </TableCell>
                 </TableRow>
                 <TableRow>
@@ -178,7 +180,7 @@ export default function MainDashboard() {
                     Accounts Payable
                   </TableCell>
                   <TableCell align="right">
-                    $ {bs.accounts_payable.toFixed(2)}
+                    $ {parseFloat(bs.accounts_payable).toFixed(2)}
                   </TableCell>
                 </TableRow>
                 <TableRow>
@@ -186,7 +188,7 @@ export default function MainDashboard() {
                     Notes Payable
                   </TableCell>
                   <TableCell align="right">
-                    $ {bs.notes_payable.toFixed(2)}
+                    $ {parseFloat(bs.notes_payable).toFixed(2)}
                   </TableCell>
                 </TableRow>
                 <TableRow>
@@ -194,7 +196,7 @@ export default function MainDashboard() {
                     Accruals
                   </TableCell>
                   <TableCell align="right">
-                    $ {bs.accruals.toFixed(2)}
+                    $ {parseFloat(bs.accruals).toFixed(2)}
                   </TableCell>
                 </TableRow>
                 <TableRow>
@@ -210,7 +212,7 @@ export default function MainDashboard() {
                     Mortgage
                   </TableCell>
                   <TableCell align="right">
-                    $ {bs.mortgage.toFixed(2)}
+                    $ {parseFloat(bs.mortgage).toFixed(2)}
                   </TableCell>
                 </TableRow>
                 <TableRow>
