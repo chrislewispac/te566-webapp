@@ -55,11 +55,19 @@ export default function ViewEmployees() {
                 {payroll_events.map((d) => (
                   <TableRow key={d.id}>
                     <TableCell>{d.item_name}</TableCell>
-                    <TableCell>{d.units_in_stock}</TableCell>
-                    <TableCell>{d.value_per_unit}</TableCell>
-                    <TableCell>{d.cost_per_unit}</TableCell>
                     <TableCell>
-                      {(d.value_per_unit - d.cost_per_unit) * d.units_in_stock}
+                      {parseFloat(d.units_in_stock).toFixed(0)}
+                    </TableCell>
+                    <TableCell>
+                      {parseFloat(d.value_per_unit).toFixed(2)}
+                    </TableCell>
+                    <TableCell>
+                      {parseFloat(d.cost_per_unit).toFixed(2)}
+                    </TableCell>
+                    <TableCell>
+                      {(parseFloat(d.value_per_unit) -
+                        parseFloat(d.cost_per_unit)) *
+                        parseFloat(d.units_in_stock)}
                     </TableCell>
                   </TableRow>
                 ))}
